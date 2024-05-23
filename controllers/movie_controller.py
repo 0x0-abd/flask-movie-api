@@ -33,7 +33,7 @@ def fetch_popular():
 
 def fetch_by_id(movie_id):
     try:
-        response = session.get(f'{base_url}/search/{movie_id}')
+        response = session.get(f'{base_url}/movie/{movie_id}')
         response.raise_for_status()  # Check for HTTP errors
         data = response.json()
         return jsonify(data), 200
