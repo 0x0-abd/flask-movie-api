@@ -14,7 +14,7 @@ def fetch_data_route(search_keyword):
 def fetch_by_id_route(search_keyword):
     return fetch_by_id(search_keyword)
 
-@movie_bp.route('/genre', methods=['POST'])
+@movie_bp.route('/genre/', methods=['POST'])
 @cross_origin()
 def fetch_by_genre_route():
     return fetch_by_genre()
