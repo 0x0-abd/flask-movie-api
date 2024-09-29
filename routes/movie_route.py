@@ -1,5 +1,5 @@
 from flask import Blueprint
-from controllers.movie_controller import fetch_name, fetch_by_genre, fetch_popular, fetch_by_id
+from controllers.movie_controller import fetch_name, fetch_by_genre, fetch_popular, fetch_by_id, fetch_videos
 from flask_cors import cross_origin
 
 movie_bp = Blueprint('movie_bp', __name__)
@@ -23,3 +23,8 @@ def fetch_by_genre_route():
 @cross_origin()
 def fetch_popular_route():
     return fetch_popular()
+
+@movie_bp.route('/<search_keyword>/videos', methods=["GET"])
+@cross_origin()
+def fetch_videos_route(search_keyword):
+    return fetch_videos(search_keyword)

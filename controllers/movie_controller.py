@@ -39,6 +39,17 @@ def fetch_by_id(movie_id):
         return jsonify(data), 200
     except requests.RequestException as e:
         return jsonify({'error': str(e)}), 500
+    
+def fetch_videos(movie_id):
+    try:
+        response = session.get(f'{base_url}/movie/{movie_id}/videos')
+        response.raise_for_status()  # Check for HTTP errors
+        data = response.json()
+        trailers = [video for video in data.get('results', []) if video.get('type') == "Trailer"]
+        
+        return jsonify(trailers), 200
+    except requests.RequestException as e:
+        return jsonify({'error': str(e)}), 500
 
 def fetch_by_genre():
     try:
@@ -48,7 +59,7 @@ def fetch_by_genre():
 
         # Convert the list to a comma-separated string
         search_keyword = '|'.join(map(str, genres_list))
-
+        print(search_keyword)
         response = session.get(f'{base_url}/discover/movie?with_genres={search_keyword}')
         response.raise_for_status()  # Check for HTTP errors
         data = response.json()
